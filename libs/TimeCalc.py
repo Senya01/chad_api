@@ -45,10 +45,10 @@ class TimeCalc:
         users = self.get_join_list_time()
         if user_id in list(users):
             place = list(users).index(user_id) + 1
+            time = users[user_id]
         else:
             place = '-'
-
-        time = users[user_id]
+            time = 0
 
         return {
             'first_timestamp': self.get_first_timestamp()[0]['datetime'],
