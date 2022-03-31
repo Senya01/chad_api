@@ -48,8 +48,11 @@ class TimeCalc:
         else:
             place = '-'
 
+        time = users[user_id]
+
         return {
             'first_timestamp': self.get_first_timestamp()[0]['datetime'],
+            'time': time,
             'place': place,
             'users': users
         }
