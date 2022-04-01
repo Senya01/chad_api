@@ -6,9 +6,12 @@ class TimeCalc:
         self.config = config
         self.db = DB.DB(self.config)
 
-    def get_join_list(self):
+    def get_join_list(self, stype=0, voice_id=0):
+        voice_id = self.config['channels']['afk'] if voice_id == 0 else ''
+        param = f' AND `voice_id` != {voice_id}' if stype == 0 else f' AND `voice_id` = {voice_id}'
+
         return self.db.getData(
-            "SELECT `voice_id`, `user_id`, `datetime` FROM `voice_time` WHERE `type` = 'join' AND `deleted` = 0;"
+            f"SELECT `voice_id`, `user_id`, `datetime` FROM `voice_time` WHERE `type` = 'join' AND `deleted` = 0{param};"
         )
 
     def get_leave(self, voice_id, user_id, datetime):
