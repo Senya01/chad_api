@@ -1,12 +1,15 @@
 {
   "database": {
-    "host": "localhost",
-    "user": "user",
-    "password": "password",
-    "database": "db"
+    "host": "46.188.59.18",
+    "user": "chad_js",
+    "password": "uEiqV2OzMy*v4Asw",
+    "database": "chad_js"
   },
   "server": {
     "host": "127.0.0.1",
     "port": "8228"
+  },
+  "channels": {
+    "afk": "892839129925169172"
   }
 }
