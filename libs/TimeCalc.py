@@ -43,15 +43,15 @@ class TimeCalc:
 
         i = 0
         sum = 0
-        print(user_id)
-        # while i < len(join_list):
-        #     if i < len(leave_list):
-        #         sum += leave_list[i]['datetime'] - join_list[i]['datetime']
-        #         print(i, join_list[i]['datetime'], leave_list[i]['datetime'], leave_list[i]['datetime'] - join_list[i]['datetime'])
-        #     i += 1
         while i < len(join_list):
+            join_time = join_list[i]['datetime']
+            leave_time = join_time
+            for item in leave_list:
+                if item['datetime'] > join_time:
+                    leave_time = item['datetime']
+                    break
 
-
+            sum += leave_time - join_time
             i += 1
 
         return sum
