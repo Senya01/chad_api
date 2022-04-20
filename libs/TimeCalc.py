@@ -9,24 +9,6 @@ class TimeCalc:
     def get_users_list(self):
         return self.db.getData("SELECT DISTINCT user_id FROM voice_time WHERE `deleted` = '0';")
 
-    # def get_join_list(self, stype=0, voice_id=0):
-    #     voice_id = self.config['channels']['afk'] if voice_id == 0 else ''
-    #     param = f' AND `voice_id` != {voice_id}' if stype == 0 else f' AND `voice_id` = {voice_id}'
-    #
-    #     return self.db.getData(
-    #         f"SELECT `voice_id`, `user_id`, `datetime` FROM `voice_time` WHERE `type` = 'join' AND `deleted` = 0{param};"
-    #     )
-
-    # def get_leave(self, voice_id, user_id, datetime):
-    #     result = self.db.getData(
-    #         f"SELECT `datetime` FROM `voice_time` WHERE `type` = 'leave' AND `deleted` = 0 AND `voice_id` = '{voice_id}' AND `user_id` = '{user_id}' AND  `datetime` >= {datetime};"
-    #     )
-    #
-    #     if not result:
-    #         return [{'datetime': datetime}]
-    #
-    #     return result
-
     def get_first_timestamp(self):
         return self.db.getData(
             f"SELECT `datetime` FROM `voice_time` WHERE `id` = 1 AND `deleted` = 0 LIMIT 1;"
