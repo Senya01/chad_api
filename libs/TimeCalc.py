@@ -34,7 +34,7 @@ class TimeCalc:
 
     def get_time_list(self, user_id, type):
         return self.db.getData(
-            f"SELECT datetime FROM voice_time WHERE deleted = '0' AND user_id = '{user_id}' AND type = '{type}';"
+            f"SELECT user_id, voice_id, datetime FROM voice_time WHERE deleted = '0' AND user_id = '{user_id}' AND type = '{type}';"
         )
 
     def get_user_info(self, user_id):
@@ -44,10 +44,11 @@ class TimeCalc:
         i = 0
         sum = 0
         while i < len(join_list):
+            voice_id = join_list[i]['voice_id']
             join_time = join_list[i]['datetime']
             leave_time = join_time
             for item in leave_list:
-                if item['datetime'] > join_time:
+                if item['datetime'] >= join_time and item['voice_id'] == voice_id:
                     leave_time = item['datetime']
                     break
 
@@ -57,7 +58,6 @@ class TimeCalc:
         return sum
 
     def get_join_list_time(self):
-        # join_list = self.get_join_list()
         users_list = self.get_users_list()
 
         result = dict()
@@ -66,15 +66,6 @@ class TimeCalc:
 
             user_info = self.get_user_info(user_id)
             result[user_id] = user_info
-
-        # for item in join_list:
-        #     join_time = item['datetime']
-        #     leave_time = self.get_leave(item['voice_id'], item['user_id'], item['datetime'])[0]['datetime']
-        #
-        #     if item['user_id'] not in result:
-        #         result[item['user_id']] = 0
-        #
-        #     result[item['user_id']] += leave_time - join_time
 
         return dict(sorted(result.items(), key=lambda y: y[1], reverse=True))
 
